@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <h1> Advertisement here! </h1>
+</head>
+<body>
+    {% block main %}
+    <div>
+        {% for head in headings %}
+            <h4> {{ head }} </h4>
+            <div>
+                {% for adv in advertisements %}
+                <ol>{% if adv.advertisements.name == head.name %}
+                    {{ adv.title }}
+                    {{ adv.content }}
+                    {{ adv.price }}
+                {% endif %}
+                </ol>
+            {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</body>
+</html>

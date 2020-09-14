@@ -1,0 +1,7 @@
+Dear {{ user.username }},
+
+Here is a letter for activation your account in our website.
+For activating your account please go on this link!
+{{ host }}{% url 'user:register_activate' sign=sign %}
+Thank you!
+Best wishes.

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}
+    An Error occurred during the activation!
+{% endblock %}
+{% block content %}
+    <h2> Activation</h2>
+    <p> Activation with such a username not completed, error occurred!</p>
+    <p> <a href="{% url 'accounts:register' %}"></a> Register again? </p>
+{% endblock %}

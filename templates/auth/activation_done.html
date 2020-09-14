@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Activation is done!
+{% endblock %}
+{% block content %}
+<h2> Activation </h2>
+    <p> User with such username is activated</p>
+    <p>
+        <a href="{% url 'accounts:sign_in' %}"> Sign in</a>
+    </p>
+{% endblock %}

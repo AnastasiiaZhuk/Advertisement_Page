@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type"
+        content="text/html; charset=utf-8">
+        <title>Main page - advertisement</title>
+    </head>
+    <body>
+    {% block main %}
+{#        {% for adv in advertisements %}#}
+{#            <div>#}
+{#                <h2>{{ adv.title }}</h2>#}
+{#                <p>{{ adv.content }}</p>#}
+{#                <p><a href="/{{ adv.advertisements.pk }}/">#}
+{#                    {{ adv.rubric.name }}</a></p>#}
+{#                <p>{{ adv.published|date:"d.m.Y H:i:s" }}</p>#}
+{#            </div>#}
+{#        {% endfor %}#}
+    {% endblock %}
+    </body>
+</html>
