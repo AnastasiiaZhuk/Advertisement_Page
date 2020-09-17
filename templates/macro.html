@@ -1,26 +1,26 @@
-{% extends 'base.html' %}
-
 {% load thumbnail %}
 {% load bootstrap4 %}
 {% load static %}
 
-{% block title %}
-    Your profile!
-{% endblock %}
-
-{% block content %}
-    <h2> Hello, {{ user.username }}!</h2>
-    <h5> Here are yours advertisement:</h5>
-    {% if advertisements %}
+<div class="container-fluid mb-2">
+    <div class="row">
+        <div class="col">&nbsp;</div>
+        <form class="col-md-auto form-inline">
+            {% bootstrap_form form show_label=False %}
+            {% bootstrap_button content='Find' button_type='submit' %}
+        </form>
+    </div>
+</div>
+{% if advertisements %}
     <ul class="list-unstyled">
         {% for adv in advertisements %}
             <li class="media mb-2 p-3 border">
-                {% url 'advertisement:detail' rubric_pk=rubric.pk pk=adv.pk as url%}
+                {% url 'advertisement:detail' pk=adv.pk as url%}
                 <a href="{{ url }}{{ all }}">
                     {% if adv.image %}
                         <img class="mr-3" src="{% thumbnail adv.image 'default' %}">
                         {% else %}
-                        <img class="mr-3" src="{% static 'main/empty.jpg' %}">
+                        <img class="mr-3" src="{% static 'white-image.png' %}" style="width:96px;height:96px;">
 
                     {% endif %}
                 </a>
@@ -37,5 +37,5 @@
             </li>
         {% endfor %}
     </ul>
+    {% bootstrap_pagination page url=keyword%}
 {% endif %}
-{% endblock %}

@@ -12,6 +12,7 @@ from django.contrib.auth.views import PasswordChangeView
 from user.forms import CustomUserCreationForm, CustomUserChangeForm
 from user.models import AdvUser
 from user.utilities import signer
+from advertisement.models import Advertisement
 
 
 class SignIn(LoginView):
@@ -69,4 +70,6 @@ def user_activate_by_email(request, sign):
 
 @login_required
 def profile(request):
-    return render(request, 'auth/profile.html')
+    advs = Advertisement.objects.filter(author=request.user.pk)
+    context = {'advertisements': advs}
+    return render(request, 'auth/profile.html', context)

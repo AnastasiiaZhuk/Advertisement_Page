@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ advertisement.title }} - {{ advertisement.rubric.name }}
+{% endblock%}
+
+{% block content %}
+    <div class="container-fluid mt-3">
+        <div class="row">
+            {% if advertisement.image %}
+                <div class="col-md-auto">
+                    <img alt="advertisement image" src="{{ advertisement.image.url }}" class="main-image">
+                </div>
+            {% endif %}
+            <div class="col">
+                <h2>{{ advertisement.title }}</h2>
+                <p> {{ advertisement.content }}</p>
+                <p class="font-weight-bold">{{ advertisement.price }}</p>
+                <p> {{ advertisement.contacts }}</p>
+                <p class="text-right font-italic"> Added {{ advertisement.published }}</p>
+            </div>
+        </div>
+    </div>
+    {% if ais %}
+        <div class="d-flex justify-content-between flex-wrap mt-5">
+            {% for ai in ais %}
+                <div>
+                    <img class="additional-image" src="{{ ai.image.url }}">
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <p><a href="{% url 'advertisement:rubric' pk=advertisement.rubric.pk %}"> Back </a></p>
+{% endblock %}

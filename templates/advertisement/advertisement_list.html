@@ -1,26 +1,38 @@
 {% extends 'base.html' %}
-<!DOCTYPE html>
-<html>
-<head>
-    <h1> Advertisement here! </h1>
-</head>
-<body>
-    {% block main %}
-    <div>
-        {% for head in headings %}
-            <h4> {{ head }} </h4>
-            <div>
-                {% for adv in advertisements %}
-                <ol>{% if adv.advertisements.name == head.name %}
-                    {{ adv.title }}
-                    {{ adv.content }}
-                    {{ adv.price }}
-                {% endif %}
-                </ol>
+
+{% load bootstrap4 %}
+{% load thumbnail %}
+{% load static %}
+
+{% block seacrhform %}
+{% endblock %}
+{% block content %}
+{% if advertisements %}
+        <ul class="list-unstyled">
+            {% for adv in advertisements %}
+                <li class="media mb-2 p-3 border">
+                    {% url 'advertisement:detail' rubric_pk=rubric.pk pk=adv.pk as url%}
+                    <a href="{{ url }}{{ all }}">
+                        {% if adv.image %}
+                            <img class="mr-3" src="{% thumbnail adv.image 'default' %}">
+                            {% else %}
+                            <img class="mr-3" src="{% static 'main/empty.jpg' %}">
+
+                        {% endif %}
+                    </a>
+                <div class="media-body">
+                    <h3><a href="{{ url }}{{ all }}">
+                        {{ adv.title }}
+                    </a></h3>
+                    <div>{{ adv.content }}</div>
+                    <p class="text-right font-weight-bold">
+                        {{ adv.price }} fsdfsdsffd
+                    </p>
+                    <p class="text-right font-italic">{{ adv.created_at }}</p>
+                </div>
+                </li>
             {% endfor %}
-            </div>
-        {% endfor %}
-    </div>
-    {% endblock %}
-</body>
-</html>
+        </ul>
+        {% bootstrap_pagination page url=keyword%}
+    {% endif %}
+{% endblock %}

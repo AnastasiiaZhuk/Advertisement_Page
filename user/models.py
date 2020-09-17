@@ -15,5 +15,10 @@ class AdvUser(AbstractUser):
     is_activated = models.BooleanField(default=True, verbose_name='Activated?')
     send_message = models.BooleanField(default=True, verbose_name='Send messages?')
 
+    def delete(self, *args, **kwargs):
+        for adv in self.advertisement_set.all():
+            adv.delete()
+        super().delete(*args, **kwargs)
+
     class Meta(AbstractUser.Meta):
         pass

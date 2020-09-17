@@ -53,14 +53,16 @@
         <nav class="col-md-auto nav flex-column border">
             <a class="nav-link root"
                href="{% url 'advertisement:advertisement_list' %}">Main Page</a>
-            <span class="nav-link root font-weight-bold">Realty</span>
-                    <a class="nav-link" href="#">Houses</a>
-                    <a class="nav-link" href="#">Boothes</a>
-                    <a class="nav-link" href="#">Garages</a>
-                    <span class="nav-link root font-weight-bold" >Vehicles</span>
-                    <a class="nav-link" href="#">Passenger</a>
-                    <a class="nav-link" href="#">Freight</a>
-                    </nav>
+            {% for rubric in rubrics %}
+                {% ifchanged rubric.super_rubric.pk %}
+                    <span class="nav-link root font-weight-bold">
+                    {{ rubric.super_rubric.name }}</span>
+                {% endifchanged %}
+                <a class="nav-link" href="{% url 'advertisement:rubric' pk=rubric.pk %}">
+                {{ rubric.name }}
+                </a>
+            {% endfor %}
+        </nav>
         <section class="col border ру-2">
             {% bootstrap_messages %}
             {% block content %}
@@ -68,8 +70,9 @@
         </section>
     </div>
     <footer class="mt-3">
-        <p class="text-right font-italic">&copy;
-        2018 г.</p>
+        <p class="text-right font-italic">
+            &copy;2020
+        </p>
     </footer>
 
 </body>

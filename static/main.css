@@ -4,3 +4,9 @@ h1{
 .display-1 {
     font-size: 52px;
 }
+img.main-image {
+    width: 300px;
+}
+img.additional-image {
+    width: 180px;
+}
