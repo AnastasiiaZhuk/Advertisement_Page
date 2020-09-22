@@ -15,7 +15,7 @@
     <ul class="list-unstyled">
         {% for adv in advertisements %}
             <li class="media mb-2 p-3 border">
-                {% url 'advertisement:detail' rubric_pk=rubric.pk pk=adv.pk as url%}
+                {% url 'advertisement:detail' pk=adv.pk as url%}
                 <a href="{{ url }}{{ all }}">
                     {% if adv.image %}
                         <img class="mr-3" src="{% thumbnail adv.image 'default' %}">
@@ -25,6 +25,7 @@
                     {% endif %}
                 </a>
             <div class="media-body">
+                <p> Rubric {{ adv.rubric }}</p>
                 <h3><a href="{{ url }}{{ all }}">
                     {{ adv.title }}
                 </a></h3>
@@ -33,6 +34,10 @@
                     {{ adv.price }}
                 </p>
                 <p class="text-right font-italic">{{ adv.created_at }}</p>
+                <p class="text-right mt-2">
+                    <a href="{% url 'advertisement:update' pk=adv.pk %}">Update</a>
+                    <a href="{% url 'advertisement:delete' pk=adv.pk %}">Delete</a>
+                </p>
             </div>
             </li>
         {% endfor %}

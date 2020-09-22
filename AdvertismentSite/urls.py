@@ -22,6 +22,7 @@ from AdvertismentSite import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('advertisement/', include('advertisement.urls', namespace='advertisement')),
-    path('accounts/', include('user.urls', namespace='accounts'))
 
+    path('accounts/', include('user.urls', namespace='accounts')),
+    path('captcha/', include('captcha.urls')),
 ]+static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

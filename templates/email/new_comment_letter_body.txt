@@ -1,0 +1,4 @@
+Dear {{ author }},
+
+Your {{ comment.adv }} advertisement receive new comment!
+Go on the site, and check out!

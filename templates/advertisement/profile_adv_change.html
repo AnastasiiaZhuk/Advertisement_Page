@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% load bootstrap4 %}
-{% block title %} Adding Advertisements {% endblock %}
+{% block title %} Update Advertisements {% endblock %}
 
 {% block content %}
-<h2> Add new Advertisement</h2>
+<h2> Update current Advertisement</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form layout='horizontal' %}
         {% bootstrap_formset formset layot='horizontal' %}
-        {% buttons submit='Add'%}{% endbuttons %}
+        {% buttons submit='Update'%}{% endbuttons %}
     </form>
 {% endblock %}

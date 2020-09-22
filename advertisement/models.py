@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 
 from user.models import AdvUser
-from user.utilities import get_timestamp_path
+from user.utilities import get_timestamp_path, send_new_comment_notification
 
 
 class Rubric(models.Model):
@@ -70,7 +70,7 @@ class Advertisement(models.Model):
     )
 
     def delete(self, *args, **kwargs):
-        for ai in self.additional_image_set.all():
+        for ai in self.additionalimage_set.all():
             ai.delete()
         super().delete(*args, **kwargs)
 
@@ -89,3 +89,34 @@ class AdditionalImage(models.Model):
 
     class Meta:
         verbose_name_plural = "Additional Images"
+
+
+class Comment(models.Model):
+    adv = models.ForeignKey(
+        Advertisement, on_delete=models.CASCADE,
+        verbose_name='Advertisement'
+    )
+    author = models.CharField(max_length=30)
+    content = models.TextField(verbose_name='Content')
+    is_active = models.BooleanField(
+        default=True, db_index=True,
+        verbose_name='List on screen?'
+    )
+    created_at = models.DateField(
+        auto_now_add=True, db_index=True,
+        verbose_name='Published at'
+    )
+
+    class Meta:
+        verbose_name_plural = 'Comments'
+        verbose_name = 'Comment'
+        ordering = ['created_at']
+
+
+def post_save_dispatcher(sender, **kwargs):
+    author = kwargs['instance'].adv.author
+    if kwargs['created'] and author.send_mesaages:
+        send_new_comment_notification(kwargs['instance'])
+
+
+post_save_dispatcher(post_save_dispatcher, sender=Comment)
